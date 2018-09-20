@@ -9,7 +9,7 @@
 * Login via SSH (putty app for windows) as the new user
 * Login as root (run su)
 * Add git: apk add git
-
-
-* Install nano text editor: apk add nano
-* Install docker by following https://wiki.alpinelinux.org/wiki/Docker
+* Download the installation script: git clone https://github.com/xhafan/hosting-server-installation.git
+* Change the working directory to hosting-server-installation: cd hosting-server-installation
+* Add execute permission to the installation script: chmod +x install_server.sh
+* Execute the installation script: ./install_server.sh
