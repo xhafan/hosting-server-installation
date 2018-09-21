@@ -3,6 +3,10 @@
 * Run setup-alpine (install the system into a [disk](https://wiki.alpinelinux.org/wiki/Install_to_disk))
 * Reboot
 * Login as root with a password
+* Update OS to the latest version - [tutorial](https://wiki.alpinelinux.org/wiki/Upgrading_Alpine#Upgrading_to_latest_release)
+* After reboot check the latest version: cat /etc/alpine-release
+* 
+* Login as root with a password
 * Add ssh by following [this](https://wiki.alpinelinux.org/wiki/Setting_up_a_ssh-server) tutorial
 * Add a new user: adduser <username\>
 * Log off root from the main console  
@@ -27,3 +31,4 @@
 * 
 * Back on the server, login as root (run su)
 * On the server, start hosting the blog by starting jekyll and nginx: docker-compose up
+* TODO: make sure docker/blog/nginx is loaded after server restart
