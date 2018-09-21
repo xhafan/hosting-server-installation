@@ -12,12 +12,3 @@ service docker start
 apk add py-pip
 pip install --upgrade pip
 pip install docker-compose
-
-mkdir xhafanblog
-mkdir xhafanblog.git && cd xhafanblog.git
-git init --bare
-cd ..
-
-echo "#!/bin/sh" > xhafanblog.git/hooks/post-receive
-echo "GIT_WORK_TREE=$(pwd)/xhafanblog git checkout -f" >> xhafanblog.git/hooks/post-receive
-
