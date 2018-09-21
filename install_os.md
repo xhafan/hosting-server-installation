@@ -14,8 +14,6 @@
 * 
 * Download the installation script: git clone https://github.com/xhafan/hosting-server-installation.git
 * Change the working directory to hosting-server-installation: cd hosting-server-installation
-* Add execute permission to the server installation script: chmod +x install_server.sh
-* Add execute permission to the blog installation script: chmod +x install_xhafanblog.sh
 * 
 * Login as root (run su)
 * Execute the server installation script: ./install_server.sh
