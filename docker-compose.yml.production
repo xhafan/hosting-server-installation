@@ -1,0 +1,27 @@
+version: '3.5'
+services:
+
+  jekyll:
+    image: jekyll/jekyll:3.8.3
+    container_name: xhafanblog_jekyll
+    command: jekyll serve --force_polling
+    ports:
+      - 4000:4000
+    volumes:
+      - ./xhafanblog:/srv/jekyll
+    restart: always
+    environment:
+      JEKYLL_ENV=production
+
+  nginx:
+    image: nginx:1.15.3-alpine
+    container_name: nginx
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 80:80
+    restart: always
+
+networks:
+  default:
+    name: xhafannet

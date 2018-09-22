@@ -10,6 +10,8 @@ services:
     volumes:
       - ./xhafanblog:/srv/jekyll
     restart: always
+    environment:
+      JEKYLL_ENV=dev
 
   nginx:
     image: nginx:1.15.3-alpine
