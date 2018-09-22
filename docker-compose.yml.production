@@ -11,7 +11,7 @@ services:
       - ./xhafanblog:/srv/jekyll
     restart: always
     environment:
-      JEKYLL_ENV=production
+      - JEKYLL_ENV=production
 
   nginx:
     image: nginx:1.15.3-alpine
