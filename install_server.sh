@@ -1,6 +1,10 @@
 #!/bin/sh
 set -x
 
+# update packages list
+echo "http://dl-cdn.alpinelinux.org/alpine/latest-stable/community" >> /etc/apk/repositories
+apk update
+
 # install awall firewall 
 apk add ip6tables
 apk add -u awall
@@ -15,8 +19,6 @@ rc-service iptables start
 rc-service ip6tables start
 
 # install and start docker
-echo "http://dl-cdn.alpinelinux.org/alpine/latest-stable/community" >> /etc/apk/repositories
-apk update
 apk add docker
 rc-update add docker boot
 service docker start
