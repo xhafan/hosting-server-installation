@@ -30,6 +30,5 @@
 * Push the blog into the server: git push <remote name\> (example: git push blog)
 * 
 * Back on the server, login as root (run su)
-* Copy docker-compose.yml.production to docker-compose.yml
+* Copy docker-compose.yml.production (production server) or docker-compose.yml.dev (dev server) to docker-compose.yml
 * On the server, start hosting the blog by starting jekyll and nginx: docker-compose up
-* TODO: make sure docker/blog/nginx is loaded after server restart
