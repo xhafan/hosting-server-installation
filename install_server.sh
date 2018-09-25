@@ -5,6 +5,16 @@ set -x
 echo "http://dl-cdn.alpinelinux.org/alpine/latest-stable/community" >> /etc/apk/repositories
 apk update
 
+# install and start docker
+apk add docker
+rc-update add docker boot
+service docker start
+
+# install docker-compose
+apk add py-pip
+pip install --upgrade pip
+pip install docker-compose
+
 # install awall firewall 
 apk add ip6tables
 apk add -u awall
@@ -18,12 +28,5 @@ rc-update add ip6tables
 rc-service iptables start
 rc-service ip6tables start
 
-# install and start docker
-apk add docker
-rc-update add docker boot
-service docker start
-
-# install docker-compose
-apk add py-pip
-pip install --upgrade pip
-pip install docker-compose
+# restart docker to pickup firewall changes
+service docker restart
