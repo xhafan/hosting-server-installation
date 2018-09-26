@@ -24,4 +24,5 @@ services:
 
 networks:
   default:
-    name: xhafannet
+   external:
+     name: xhafannet
