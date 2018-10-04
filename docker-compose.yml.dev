@@ -5,8 +5,6 @@ services:
     image: jekyll/jekyll:3.8.3
     container_name: xhafanblog_jekyll
     command: jekyll serve --force_polling
-    ports:
-      - 4000:4000
     volumes:
       - ./xhafanblog:/srv/jekyll
     restart: always
@@ -21,6 +19,51 @@ services:
     ports:
       - 80:80
     restart: always
+
+  postgres:
+    image: postgres:10.5-alpine
+    container_name: postgres
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=changeme-postgres-password
+
+  rabbitmq:
+    image: rabbitmq:3.7.8
+    container_name: rabbitmq
+    restart: always
+    environment:
+      - RABBITMQ_DEFAULT_USER=changeme-rabbitmq-user
+      - RABBITMQ_DEFAULT_PASS=changeme-rabbitmq-password
+
+  smtp:
+    image: namshi/smtp
+    container_name: smtp
+    restart: always
+    environment:
+      - MAILNAME=changeme_smtp_hostname
+
+  emailmakerwebsitecore:
+    image: xhafan/emailmakerwebsitecore:linux
+    container_name: emailmakerwebsitecore
+    environment:
+      - Rebus__RabbitMQ__ConnectionString=amqp://changeme-rabbitmq-user:changeme-rabbitmq-password@rabbitmq
+      - PathBase=/emailmaker
+    restart: always
+    volumes:
+      - ./hibernate.cfg.xml:/app/hibernate.cfg.xml
+
+  emailmakerservice:
+    image: xhafan/emailmakerservice:linux
+    container_name: emailmakerservice
+    environment:
+      - Rebus__RabbitMQ__ConnectionString=amqp://changeme-rabbitmq-user:changeme-rabbitmq-password@rabbitmq
+      - SmtpServer=smtp
+    volumes:
+      - ./hibernate.cfg.xml:/app/hibernate.cfg.xml
+    restart: always
+    stdin_open: true
 
 networks:
   default:

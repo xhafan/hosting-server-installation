@@ -31,4 +31,11 @@
 * 
 * Back on the server, login as root (run su)
 * Copy docker-compose.yml.production (production server) or docker-compose.yml.dev (dev server) to docker-compose.yml
+* Edit docker-compose.yml and replace values of following environment variables: 
+ * POSTGRES\_PASSWORD
+ * RABBITMQ\_DEFAULT\_USER
+ * RABBITMQ\_DEFAULT\_PASS
+ * Rebus\_\_RabbitMQ\_\_ConnectionString (2x)
+ * MAILNAME
 * On the server, start hosting the blog by starting jekyll and nginx: docker-compose up
+* Test emailmaker app (http://hostname/emailmaker). Once working, go to directory hosting-server-installation/postgres-data , edit postgresql.conf , and set _max\_prepared\_transactions = 100_ to enable posgresql DB to work with .NET TransactionScope.

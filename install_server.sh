@@ -31,3 +31,6 @@ service docker start
 apk add py-pip
 pip install --upgrade pip
 pip install docker-compose
+
+# create data directory for postgresql DB
+mkdir postgres-data
