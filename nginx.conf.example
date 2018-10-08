@@ -47,12 +47,12 @@ http {
 
         # permanently redirect old blog url
         location /blog/do-you-want-to-write-readable-maintainable-code-use-ddd-tdd-cqrs-ioc {
-            return 301 " /blog/2012/11/06/readable-maintainable-code.html";
+            return 301 https://$host/blog/2012/11/06/readable-maintainable-code.html;
         }
 
         # permanently redirect old blog url
         location /blog/coreddd-tutorial-real-life-ddd-tdd-asp-net-mvc-wpf-application-built-on-coreddd-library {
-            return 301 " /blog/2012/11/07/CoreDdd-tutorial.html";
+            return 301 https://$host/blog/2012/11/07/CoreDdd-tutorial.html;
         }
 
         # emailmaker website core
