@@ -49,6 +49,7 @@ read -p "Enter domain: " DOMAIN
 
 if [ "${USE_LETSENCRYPT}" == "true" ]
 then 
+    docker build -t certbox-no-pax -f Dockerfile.certbox-no-pax . # https://github.com/certbot/certbot/issues/5737#issuecomment-388020342
     LETSENCRYPT_EMAIL=ssl_certificate_email
     read -p "Enter SSL certificate email: " LETSENCRYPT_EMAIL
     docker run -it --rm \
@@ -56,7 +57,7 @@ then
       -v /docker-volumes/etc/letsencrypt:/etc/letsencrypt \
       -v /docker-volumes/var/lib/letsencrypt:/var/lib/letsencrypt \
       -v "/docker-volumes/var/log/letsencrypt:/var/log/letsencrypt" \
-      certbot/certbot \
+      certbox-no-pax \
       certonly \
       --email ${LETSENCRYPT_EMAIL} --agree-tos --no-eff-email \
       -d ${DOMAIN}
