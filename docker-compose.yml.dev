@@ -46,7 +46,7 @@ services:
     container_name: smtp
     restart: always
     environment:
-      - SMTP_SERVER_NAME=changeme_smtp_server_name
+      - MAILNAME=changeme_smtp_hostname
 
   emailmakerwebsitecore:
     image: xhafan/emailmakerwebsitecore:linux
