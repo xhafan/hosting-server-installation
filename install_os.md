@@ -44,6 +44,4 @@
 * Create SSH tunnel: 5433 -> <postgres container IP address\>:5432
 * Connect to localhost:5433 in pgAdmin , create EmailMaker DB, and emailmaker DB login with a password (these should match the DB connection string in hibernate.cfg.xml).
 * Test emailmaker app (https://<server\>/emailmaker). Once login page is displayed, go to directory hosting-server-installation/postgres-data , edit postgresql.conf , and set _max\_prepared\_transactions = 100_ to enable posgresql DB to work with .NET TransactionScope. Restart postgres: docker-compose restart postgres.
-* 
- 
 
