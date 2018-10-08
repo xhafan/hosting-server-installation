@@ -37,7 +37,7 @@
  * RABBITMQ\_DEFAULT\_PASS
  * Rebus\_\_RabbitMQ\_\_ConnectionString (2x)
  * MAILNAME
- * DOMAIN_NAME
+ * DOMAIN\_NAME
 * On the server, start the containers: docker-compose up -d
 * Emailmaker app needs to create a database and a database login first. Check the IP address of postgres container: docker exec -it postgres /bin/sh
 * Ping postgres: ping postgres

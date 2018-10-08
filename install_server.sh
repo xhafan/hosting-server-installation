@@ -58,7 +58,6 @@ then
       certbot/certbot \
       certonly --webroot \
       --email ${LETSENCRYPT_EMAIL} --agree-tos --no-eff-email \
-      --staging \
       -d ${DOMAIN}
 else
     mkdir -p /docker-volumes/etc/letsencrypt/live/${DOMAIN}
