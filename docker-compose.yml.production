@@ -16,8 +16,12 @@ services:
     container_name: nginx
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./dh-param/dhparam-2048.pem:/etc/ssl/certs/dhparam-2048.pem
+      - /docker-volumes/etc/letsencrypt/live/DOMAIN_NAME/fullchain.pem:/etc/letsencrypt/live/DOMAIN_NAME/fullchain.pem
+      - /docker-volumes/etc/letsencrypt/live/DOMAIN_NAME/privkey.pem:/etc/letsencrypt/live/DOMAIN_NAME/privkey.pem
     ports:
       - 80:80
+      - 443:443
     restart: always
 
   postgres:
@@ -42,7 +46,7 @@ services:
     container_name: smtp
     restart: always
     environment:
-      - MAILNAME=changeme_smtp_hostname
+      - SMTP_SERVER_NAME=changeme_smtp_server_name
 
   emailmakerwebsitecore:
     image: xhafan/emailmakerwebsitecore:linux

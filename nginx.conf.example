@@ -1,0 +1,68 @@
+events {
+    worker_connections  1024;  ## Default: 1024
+}
+
+http {
+    server {
+        listen      80;
+        listen [::]:80;
+
+        location / {
+            rewrite ^ https://$host$request_uri? permanent;
+        }
+
+        #for certbot challenges (renewal process)
+        location ~ /.well-known/acme-challenge {
+        }
+    }
+
+    server {
+        listen      443 ssl http2;
+        listen [::]:443 ssl http2;
+
+        server_tokens off;
+
+        ssl on;
+
+        ssl_buffer_size 8k;
+        ssl_dhparam /etc/ssl/certs/dhparam-2048.pem;
+
+        ssl_protocols TLSv1.2 TLSv1.1 TLSv1;
+        ssl_prefer_server_ciphers on;
+        ssl_ciphers ECDH+AESGCM:ECDH+AES256:ECDH+AES128:DH+3DES:!ADH:!AECDH:!MD5;
+
+        ssl_ecdh_curve secp384r1;
+        ssl_session_tickets off;
+
+        # OCSP stapling
+        ssl_stapling on;
+        ssl_stapling_verify on;
+        resolver 8.8.8.8 8.8.4.4;
+
+        ssl_certificate /etc/letsencrypt/live/DOMAIN_NAME/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/DOMAIN_NAME/privkey.pem;
+
+        # xhafan blog on jekyll
+        location /blog {
+            proxy_pass http://xhafanblog_jekyll:4000/blog;
+        }
+
+        # permanently redirect old blog url
+        location /blog/do-you-want-to-write-readable-maintainable-code-use-ddd-tdd-cqrs-ioc {
+            return 301 " /blog/2012/11/06/readable-maintainable-code.html";
+        }
+
+        # permanently redirect old blog url
+        location /blog/coreddd-tutorial-real-life-ddd-tdd-asp-net-mvc-wpf-application-built-on-coreddd-library {
+            return 301 " /blog/2012/11/07/CoreDdd-tutorial.html";
+        }
+
+        # emailmaker website core
+        location /emailmaker {
+            proxy_pass http://emailmakerwebsitecore/emailmaker;  
+            proxy_set_header Host $host;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+    }
+}

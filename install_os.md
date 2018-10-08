@@ -36,6 +36,14 @@
  * RABBITMQ\_DEFAULT\_USER
  * RABBITMQ\_DEFAULT\_PASS
  * Rebus\_\_RabbitMQ\_\_ConnectionString (2x)
- * MAILNAME
-* On the server, start hosting the blog by starting jekyll and nginx: docker-compose up
-* Test emailmaker app (http://hostname/emailmaker). Once working, go to directory hosting-server-installation/postgres-data , edit postgresql.conf , and set _max\_prepared\_transactions = 100_ to enable posgresql DB to work with .NET TransactionScope.
+ * SMTP\_SERVER\_NAME
+ * DOMAIN_NAME
+* On the server, start the containers: docker-compose up -d
+* Emailmaker app needs to create a database and a database login first. Check the IP address of postgres container: docker exec -it postgres /bin/sh
+* Ping postgres: ping postgres
+* Create SSH tunnel: 5433 -> <postgres container IP address\>:5432
+* Connect to localhost:5433 in pgAdmin , create EmailMaker DB, and emailmaker DB login with a password (these should match the DB connection string in hibernate.cfg.xml).
+* Test emailmaker app (https://<server\>/emailmaker). Once login page is displayed, go to directory hosting-server-installation/postgres-data , edit postgresql.conf , and set _max\_prepared\_transactions = 100_ to enable posgresql DB to work with .NET TransactionScope. Restart postgres: docker-compose restart postgres.
+* 
+ 
+

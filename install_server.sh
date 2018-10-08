@@ -14,6 +14,7 @@ ufw default deny incoming
 ufw default allow outgoing
 ufw limit SSH
 ufw allow in 80/tcp
+ufw allow in 443/tcp
 rc-update add ufw
 
 # configure ufw firewall when used with docker (https://github.com/moby/moby/issues/4737#issuecomment-419705925)
@@ -34,3 +35,39 @@ pip install docker-compose
 
 # create data directory for postgresql DB
 mkdir postgres-data
+
+# SSL certificate
+apk add openssl
+mkdir dh-param
+
+USE_LETSENCRYPT=false
+DOMAIN=domain-name
+
+read -p "Use let's encrypt [true/false]: " USE_LETSENCRYPT
+read -p "Enter domain: " DOMAIN
+
+
+if [ "${USE_LETSENCRYPT}" == "true" ]
+then 
+    LETSENCRYPT_EMAIL=ssl_certificate_email
+    read -p "Enter SSL certificate email: " LETSENCRYPT_EMAIL
+    docker run -it --rm \
+      -v /docker-volumes/etc/letsencrypt:/etc/letsencrypt \
+      -v /docker-volumes/var/lib/letsencrypt:/var/lib/letsencrypt \
+      -v "/docker-volumes/var/log/letsencrypt:/var/log/letsencrypt" \
+      certbot/certbot \
+      certonly --webroot \
+      --email ${LETSENCRYPT_EMAIL} --agree-tos --no-eff-email \
+      --staging \
+      -d ${DOMAIN}
+else
+    mkdir -p /docker-volumes/etc/letsencrypt/live/${DOMAIN}
+    openssl req -x509 -newkey rsa:4096 \
+      -keyout /docker-volumes/etc/letsencrypt/live/${DOMAIN}/privkey.pem \
+      -out /docker-volumes/etc/letsencrypt/live/${DOMAIN}/fullchain.pem \
+      -days 3650 -subj "/CN=${DOMAIN}"
+fi
+
+openssl dhparam -out ./dh-param/dhparam-2048.pem 2048
+cp nginx.conf.example nginx.conf
+sed -i -e "s/DOMAIN_NAME/${DOMAIN}/g" nginx.conf
