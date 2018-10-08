@@ -62,7 +62,7 @@ then
       -d ${DOMAIN}
 else
     mkdir -p /docker-volumes/etc/letsencrypt/live/${DOMAIN}
-    openssl req -x509 -newkey rsa:4096 \
+    openssl req -x509 -newkey rsa:4096 -nodes \
       -keyout /docker-volumes/etc/letsencrypt/live/${DOMAIN}/privkey.pem \
       -out /docker-volumes/etc/letsencrypt/live/${DOMAIN}/fullchain.pem \
       -days 3650 -subj "/CN=${DOMAIN}"
