@@ -52,7 +52,7 @@ then
     LETSENCRYPT_EMAIL=ssl_certificate_email
     read -p "Enter SSL certificate email: " LETSENCRYPT_EMAIL
     docker run -it --rm \
-      -p 80:80
+      -p 80:80 \
       -v /docker-volumes/etc/letsencrypt:/etc/letsencrypt \
       -v /docker-volumes/var/lib/letsencrypt:/var/lib/letsencrypt \
       -v "/docker-volumes/var/log/letsencrypt:/var/log/letsencrypt" \
