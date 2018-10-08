@@ -56,7 +56,7 @@ then
       -v /docker-volumes/var/lib/letsencrypt:/var/lib/letsencrypt \
       -v "/docker-volumes/var/log/letsencrypt:/var/log/letsencrypt" \
       certbot/certbot \
-      certonly --webroot \
+      certonly \
       --email ${LETSENCRYPT_EMAIL} --agree-tos --no-eff-email \
       -d ${DOMAIN}
 else
