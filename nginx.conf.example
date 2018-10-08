@@ -16,7 +16,7 @@ http {
         }
 
         #for certbot challenges (renewal process)
-        location ~ /.well-known/acme-challenge {
+        location ^~ /.well-known/acme-challenge {
             allow all;
             root /data/letsencrypt;
         }
