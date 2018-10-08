@@ -72,3 +72,6 @@ fi
 openssl dhparam -out ./dh-param/dhparam-2048.pem 2048
 cp nginx.conf.example nginx.conf
 sed -i -e "s/DOMAIN_NAME/${DOMAIN}/g" nginx.conf
+
+mkdir -p /docker-volumes/data/letsencrypt # directory for Let's encrypt SSL certificate renewal process
+(crontab -l ; echo "0 23 * * * docker run --rm -it --name certbot -v "/docker-volumes/etc/letsencrypt:/etc/letsencrypt" -v "/docker-volumes/var/lib/letsencrypt:/var/lib/letsencrypt" -v "/docker-volumes/data/letsencrypt:/data/letsencrypt" -v "/docker-volumes/var/log/letsencrypt:/var/log/letsencrypt" certbot/certbot renew --webroot -w /data/letsencrypt --quiet && docker kill --signal=HUP nginx") | sort - | uniq - | crontab - # trying to renew SSL certificate every day at 23h (https://www.humankode.com/ssl/how-to-set-up-free-ssl-certificates-from-lets-encrypt-using-docker-and-nginx)
