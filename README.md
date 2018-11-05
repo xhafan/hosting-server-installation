@@ -5,5 +5,5 @@ Tutorial and Linux script to install [Alpine Linux](https://alpinelinux.org/) se
 
 Why Alpine Linux as a hosting OS:
     
-* small footprint on disk (~1GB for the above) so it's an ideal OS into a VM at a [cheap hosting provider](https://news.ycombinator.com/item?id=16407294)
+* small footprint on disk (~1GB for the above) so it's an ideal OS into a VM at a [cheap hosting provider](https://vpscomp.com/servers)
 * great for hosting Docker
