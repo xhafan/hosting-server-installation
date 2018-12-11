@@ -7,6 +7,14 @@ http {
         listen      80;
         listen [::]:80;
 
+        location = / {
+            return 302 https://$host/blog/;
+        }
+
+        location = /blog {
+            return 302 https://$host/blog/;
+        }
+
         location /blog/ {
             rewrite ^ https://$host$request_uri? permanent;
         }
@@ -45,6 +53,14 @@ http {
 
         ssl_certificate /etc/letsencrypt/live/DOMAIN_NAME/fullchain.pem;
         ssl_certificate_key /etc/letsencrypt/live/DOMAIN_NAME/privkey.pem;
+
+        location = / {
+            return 302 https://$host/blog/;
+        }
+
+        location = /blog {
+            return 302 https://$host/blog/;
+        }
 
         # xhafan blog on jekyll
         location /blog {
