@@ -7,6 +7,10 @@ http {
         listen      80;
         listen [::]:80;
 
+        location = /robots.txt {
+            return 301 https://$host/robots.txt;
+        }
+
         location = / {
             return 302 https://$host/blog/;
         }
