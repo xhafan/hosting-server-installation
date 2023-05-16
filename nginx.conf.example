@@ -87,6 +87,11 @@ http {
             return 301 https://$host/blog/2012/11/07/CoreDdd-tutorial.html;
         }
 
+        # permanently redirect old blog url
+        location /blog/coreddd-tutorial-real-life-ddd-tdd-asp-net-mvc-wpf-application-build-on-coreddd-library {
+            return 301 https://$host/blog/2012/11/07/CoreDdd-tutorial.html;
+        }
+
         # emailmaker website core
         location /emailmaker {
             proxy_pass http://emailmakerwebsitecore/emailmaker;  
